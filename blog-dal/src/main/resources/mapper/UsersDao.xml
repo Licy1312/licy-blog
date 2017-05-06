@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.licy.dao.IUsersDao">
+    <resultMap id="userResultMap" type="com.shu.licy.model.Users">
+        <id property="id" column="id"  />
+        <result property="accountId" column="account_id"/>
+        <result property="name" column="name"/>
+        <result property="birthday" column="birthday"/>
+        <result property="telephone" column="telephone"/>
+        <result property="email" column="email"/>
+        <result property="grade" column="grade"/>
+        <result property="introduce" column="introduce"/>
+        <result property="headAppear" column="head_appear"/>
+        <result property="createBy" column="create_by" />
+        <result property="createTime"  column="create_time" />
+        <result property="updateBy"  column="update_by" />
+        <result property="updateTime"  column="update_time" />
+    </resultMap>
+
+    <sql id="userColumn">
+        a.id AS "id",
+        a.account_id AS "accountId",
+        a.name AS "name",
+        a.birthday AS "birthday",
+        a.telephone AS "telephone",
+        a.email AS "email",
+        a.grade AS "grade",
+        a.introduce AS "introduce",
+        a.head_appear AS "headAppear",
+        a.create_by AS "createBy",
+        a.create_time AS "createTime",
+        a.update_by AS "updateBy",
+        a.update_time AS "updateTime"
+    </sql>
+
+    <!--添加对象-->
+    <insert id="addUser">
+        INSERT INTO
+        users(
+        account_id,
+        name,
+        birthday,
+        telephone,
+        email,
+        grade,
+        introduce,
+        head_appear,
+        create_by,
+        create_time)
+        VALUES (
+        #{bean.accountId},
+        #{bean.name},
+        #{bean.birthday},
+        #{bean.telephone},
+        #{bean.email},
+        #{bean.grade},
+        #{bean.introduce},
+        #{bean.headAppear},
+        #{bean.createBy},
+        #{bean.createTime})
+    </insert>
+
+    <!--更新用户对象-->
+    <update id="updateUser" >
+        UPDATE users a
+        <set>
+            <if test="bean.accountId !=null and bean.accountId !=''">
+                a.account_id=#{bean.accountId},
+            </if>
+            <if test="bean.name !=null and bean.name !=''">
+                a.name=#{bean.name},
+            </if>
+            <if test="bean.birthday !=null and bean.birthday !=''">
+                a.birthday=#{bean.birthday},
+            </if>
+            <if test="bean.telephone !=null and bean.telephone !=''">
+                a.telephone=#{bean.telephone},
+            </if>
+            <if test="bean.email !=null and bean.email !=''">
+                a.email=#{bean.email},
+            </if>
+            <if test="bean.grade !=null and bean.grade !=''">
+                a.grade=#{bean.grade},
+            </if>
+            <if test="bean.introduce !=null and bean.introduce !=''">
+                a.introduce=#{bean.introduce},
+            </if>
+            <if test="bean.headAppear !=null and bean.headAppear !=''">
+                a.head_appear=#{bean.headAppear},
+            </if>
+            <if test="bean.updateBy !=null and bean.updateBy !=''">
+                a.update_by=#{bean.updateBy}
+            </if>
+        </set>
+        where a.id =#{bean.id}
+    </update>
+
+    <!--条件查询-->
+    <select id="queryUserById" resultMap="userResultMap">
+        SELECT
+        <include refid="userColumn"/>
+        FROM users a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+        </where>
+    </select>
+
+    <!--查询所有用户-->
+    <select id="queryUserList" resultMap="userResultMap">
+        SELECT
+        <include refid="userColumn"/>
+        FROM users a
+        ORDER BY a.create_time DESC
+    </select>
+
+</mapper>

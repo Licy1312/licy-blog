@@ -9,7 +9,7 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class Accounts extends Base{
 
     /**
@@ -23,8 +23,8 @@ public class Accounts extends Base{
     private String password;
 
     /**
-     * 状态：启用（"1"）,禁用（"0"）
+     * 状态：启用（1）,禁用（0），默认为1
      */
-    private String status;
+    private int status;
 
 }

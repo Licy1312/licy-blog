@@ -11,8 +11,8 @@ import java.sql.Date;
  */
 @Getter
 @Setter
-@ToString
-public class Users {
+@ToString(callSuper = true)
+public class Users extends Base{
 
     /**
      * 账户号

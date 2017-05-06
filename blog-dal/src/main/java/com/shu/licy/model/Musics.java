@@ -12,8 +12,8 @@ import java.sql.Date;
  */
 @Getter
 @Setter
-@ToString
-public class Musics {
+@ToString(callSuper = true)
+public class Musics extends Base{
     /**
      * 音乐名称
      */

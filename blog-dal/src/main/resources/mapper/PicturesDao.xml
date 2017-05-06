@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.licy.dao.IPicturesDao">
+    <resultMap id="pictureResultMap" type="com.shu.licy.model.Pictures">
+        <id property="id" column="id"  />
+        <result property="name" column="name"/>
+        <result property="path" column="path"/>
+        <result property="hits" column="hits"/>
+        <result property="typeName" column="type_name"/>
+        <result property="type" column="type"/>
+        <result property="createBy" column="create_by" />
+        <result property="createTime"  column="create_time" />
+        <result property="updateBy"  column="update_by" />
+        <result property="updateTime"  column="update_time" />
+    </resultMap>
+
+    <sql id="pictureColumn">
+        a.id AS "id",
+        a.name AS "name",
+        a.path AS "path",
+        a.hits AS "hits",
+        a.type_name AS "typeName",
+        a.type AS "type",
+        a.create_by AS "createBy",
+        a.create_time AS "createTime",
+        a.update_by AS "updateBy",
+        a.update_time AS "updateTime"
+    </sql>
+
+    <!--添加对象-->
+    <insert id="add">
+        INSERT INTO
+        picture(
+        name,
+        path,
+        hits,
+        type_name,
+        type,
+        create_by,
+        create_time)
+        VALUES (
+        #{bean.name},
+        #{bean.path},
+        #{bean.hits},
+        #{bean.typeName},
+        #{bean.type},
+        #{bean.createBy},
+        #{bean.createTime})
+    </insert>
+
+    <!--删除对象-->
+    <delete id="delete">
+        DELETE a FROM picture a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.name != null and bean.name !=''">
+                and a.name = #{bean.name}
+            </if>
+            <if test="bean.path != null and bean.path !=''">
+                and a.path = #{bean.path}
+            </if>
+            <if test="bean.hits != null and bean.hits !=''">
+                and a.hits = #{bean.hits}
+            </if>
+            <if test="bean.typeName != null and bean.typeName !=''">
+                and a.type_name = #{bean.typeName}
+            </if>
+            <if test="bean.type != null and bean.type !=''">
+                and a.type = #{bean.type}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+        </where>
+    </delete>
+
+    <!--查询对象-->
+    <select id="queryList" resultMap="pictureResultMap">
+        SELECT
+        <include refid="pictureColumn"/>
+        FROM picture a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.name != null and bean.name !=''">
+                and a.name = #{bean.name}
+            </if>
+            <if test="bean.path != null and bean.path !=''">
+                and a.path = #{bean.path}
+            </if>
+            <if test="bean.hits != null and bean.hits !=''">
+                and a.hits = #{bean.hits}
+            </if>
+            <if test="bean.typeName != null and bean.typeName !=''">
+                and a.type_name = #{bean.typeName}
+            </if>
+            <if test="bean.type != null and bean.type !=''">
+                and a.type = #{bean.type}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询数量-->
+    <select id="queryCount" resultType="int">
+        SELECT count(*)
+        FROM picture a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.name != null and bean.name !=''">
+                and a.name = #{bean.name}
+            </if>
+            <if test="bean.path != null and bean.path !=''">
+                and a.path = #{bean.path}
+            </if>
+            <if test="bean.hits != null and bean.hits !=''">
+                and a.hits = #{bean.hits}
+            </if>
+            <if test="bean.typeName != null and bean.typeName !=''">
+                and a.type_name = #{bean.typeName}
+            </if>
+            <if test="bean.type != null and bean.type !=''">
+                and a.type = #{bean.type}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询-->
+    <select id="queryListByPage" resultMap="pictureResultMap">
+        SELECT
+        <include refid="pictureColumn"/>
+        FROM picture a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.name != null and bean.name !=''">
+                and a.name = #{bean.name}
+            </if>
+            <if test="bean.path != null and bean.path !=''">
+                and a.path = #{bean.path}
+            </if>
+            <if test="bean.hits != null and bean.hits !=''">
+                and a.hits = #{bean.hits}
+            </if>
+            <if test="bean.typeName != null and bean.typeName !=''">
+                and a.type_name = #{bean.typeName}
+            </if>
+            <if test="bean.type != null and bean.type !=''">
+                and a.type = #{bean.type}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+        ORDER BY a.create_time DESC limit #{start},#{end}
+    </select>
+
+</mapper>

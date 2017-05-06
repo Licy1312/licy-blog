@@ -13,8 +13,8 @@ import java.util.Date;
  */
 @Getter
 @Setter
-@ToString
-public class Messages {
+@ToString(callSuper = true)
+public class Messages extends Base {
 
     /**
      * 标题
@@ -37,9 +37,9 @@ public class Messages {
     private int pid;
 
     /**
-     * 类型
+     * 类型（1，公开,0私密）
      */
-    private String type;
+    private int type;
 
 
 }

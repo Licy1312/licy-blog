@@ -15,11 +15,11 @@ import java.util.Date;
  */
 @Getter
 @Setter
-@ToString
-public class Articles {
+@ToString(callSuper = true)
+public class Articles extends Base{
 
     /**
-     * 文章类型
+     * 文章类型 0：自创，1：修改，2：复制
      */
     private int type;
 
@@ -51,7 +51,7 @@ public class Articles {
     /**
      * 来源
      */
-    private String resources;
+    private String urlPath;
 
     /**
      *笔记本编号

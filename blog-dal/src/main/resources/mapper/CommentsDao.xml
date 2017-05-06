@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.licy.dao.ICommentsDao">
+    <resultMap id="commentResultMap" type="com.shu.licy.model.Comments">
+        <id property="id" column="id"  />
+        <result property="hostname" column="hostname"/>
+        <result property="content" column="content"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="articleId" column="article_id"/>
+        <result property="noteId" column="note_id"/>
+        <result property="createBy" column="create_by" />
+        <result property="createTime"  column="create_time" />
+        <result property="updateBy"  column="update_by" />
+        <result property="updateTime"  column="update_time" />
+    </resultMap>
+
+    <sql id="commentColumn">
+        a.id AS "id",
+        a.hostname AS "hostname",
+        a.content AS "content",
+        a.parent_id AS "parentId",
+        a.article_id AS "articleId",
+        a.note_id AS "noteId",
+        a.create_by AS "createBy",
+        a.create_time AS "createTime",
+        a.update_by AS "updateBy",
+        a.update_time AS "updateTime"
+    </sql>
+
+    <!--添加对象-->
+    <insert id="add">
+        INSERT INTO
+        comment(
+        hostname,
+        content,
+        parent_id,
+        article_id,
+        note_id,
+        create_by,
+        create_time)
+        VALUES (
+        #{bean.hostname},
+        #{bean.content},
+        #{bean.parentId},
+        #{bean.articleId},
+        #{bean.noteId},
+        #{bean.createBy},
+        #{bean.createTime})
+    </insert>
+
+    <!--删除对象-->
+    <delete id="delete">
+        DELETE a FROM comment a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.hostname != null and bean.hostname !=''">
+                and a.hostname = #{bean.hostname}
+            </if>
+            <if test="bean.content != null and bean.content !=''">
+                and a.content = #{bean.content}
+            </if>
+            <if test="bean.parentId != null and bean.parentId !=''">
+                and a.parent_id = #{bean.parentId}
+            </if>
+            <if test="bean.articleId != null and bean.articleId !=''">
+                and a.article_id = #{bean.articleId}
+            </if>
+            <if test="bean.noteId != null and bean.noteId !=''">
+                and a.note_id = #{bean.noteId}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+        </where>
+    </delete>
+
+    <!--查询对象-->
+    <select id="queryList" resultMap="commentResultMap">
+        SELECT
+        <include refid="commentColumn"/>
+        FROM comment a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.hostname != null and bean.hostname !=''">
+                and a.hostname = #{bean.hostname}
+            </if>
+            <if test="bean.content != null and bean.content !=''">
+                and a.content = #{bean.content}
+            </if>
+            <if test="bean.parentId != null and bean.parentId !=''">
+                and a.parent_id = #{bean.parentId}
+            </if>
+            <if test="bean.articleId != null and bean.articleId !=''">
+                and a.article_id = #{bean.articleId}
+            </if>
+            <if test="bean.noteId != null and bean.noteId !=''">
+                and a.note_id = #{bean.noteId}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询数量-->
+    <select id="queryCount" resultType="int">
+        SELECT count(*)
+        FROM comment a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.hostname != null and bean.hostname !=''">
+                and a.hostname = #{bean.hostname}
+            </if>
+            <if test="bean.content != null and bean.content !=''">
+                and a.content = #{bean.content}
+            </if>
+            <if test="bean.parentId != null and bean.parentId !=''">
+                and a.parent_id = #{bean.parentId}
+            </if>
+            <if test="bean.articleId != null and bean.articleId !=''">
+                and a.article_id = #{bean.articleId}
+            </if>
+            <if test="bean.noteId != null and bean.noteId !=''">
+                and a.note_id = #{bean.noteId}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询-->
+    <select id="queryListByPage" resultMap="commentResultMap">
+        SELECT
+        <include refid="commentColumn"/>
+        FROM comment a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.hostname != null and bean.hostname !=''">
+                and a.hostname = #{bean.hostname}
+            </if>
+            <if test="bean.content != null and bean.content !=''">
+                and a.content = #{bean.content}
+            </if>
+            <if test="bean.parentId != null and bean.parentId !=''">
+                and a.parent_id = #{bean.parentId}
+            </if>
+            <if test="bean.articleId != null and bean.articleId !=''">
+                and a.article_id = #{bean.articleId}
+            </if>
+            <if test="bean.noteId != null and bean.noteId !=''">
+                and a.note_id = #{bean.noteId}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+        ORDER BY a.create_time DESC limit #{start},#{end}
+    </select>
+
+</mapper>

@@ -13,8 +13,8 @@ import java.sql.Timestamp;
  */
 @Getter
 @Setter
-@ToString
-public class Comment {
+@ToString(callSuper = true)
+public class Comments extends Base{
     /**
      * 评论者的IP
      */
@@ -26,12 +26,18 @@ public class Comment {
     private String content;
 
     /**
-     * 附件评论编号
+     * 父级评论编号
      */
-    private int pId;
+    private int parentId;
 
     /**
      * 文章编号
      */
     private int articleId;
+
+    /**
+     * 文章编号
+     */
+    private int noteId;
+
 }

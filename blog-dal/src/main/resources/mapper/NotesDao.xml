@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.licy.dao.INotesDao">
+    <resultMap id="noteResultMap" type="com.shu.licy.model.Notes">
+        <id property="id" column="id"  />
+        <result property="noteName" column="note_name"/>
+        <result property="urlPath" column="url_path"/>
+        <result property="num" column="num"/>
+        <result property="createBy" column="create_by" />
+        <result property="createTime"  column="create_time" />
+        <result property="updateBy"  column="update_by" />
+        <result property="updateTime"  column="update_time" />
+    </resultMap>
+
+    <sql id="noteColumn">
+        a.id AS "id",
+        a.note_name AS "noteName",
+        a.url_path AS "urlPath",
+        a.num AS "num",
+        a.create_by AS "createBy",
+        a.create_time AS "createTime",
+        a.update_by AS "updateBy",
+        a.update_time AS "updateTime"
+    </sql>
+
+    <!--添加对象-->
+    <insert id="add">
+        INSERT INTO
+        notes(
+        note_name,
+        url_path,
+        num,
+        create_by,
+        create_time)
+        VALUES (
+        #{bean.noteName},
+        #{bean.urlPath},
+        #{bean.num},
+        #{bean.createBy},
+        #{bean.createTime})
+    </insert>
+
+    <!--删除对象-->
+    <delete id="delete">
+        DELETE a FROM notes a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.noteName != null and bean.noteName !=''">
+                and a.note_name = #{bean.noteName}
+            </if>
+            <if test="bean.urlPath != null and bean.urlPath !=''">
+                and a.url_path = #{bean.urlPath}
+            </if>
+            <if test="bean.num != null and bean.num !=''">
+                and a.num = #{bean.num}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+        </where>
+    </delete>
+
+    <!--查询对象-->
+    <select id="queryList" resultMap="noteResultMap">
+        SELECT
+        <include refid="noteColumn"/>
+        FROM notes a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.noteName != null and bean.noteName !=''">
+                and a.note_name = #{bean.noteName}
+            </if>
+            <if test="bean.urlPath != null and bean.urlPath !=''">
+                and a.url_path = #{bean.urlPath}
+            </if>
+            <if test="bean.num != null and bean.num !=''">
+                and a.num = #{bean.num}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询数量-->
+    <select id="queryCount" resultType="int">
+        SELECT count(*)
+        FROM notes a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.noteName != null and bean.noteName !=''">
+                and a.note_name = #{bean.noteName}
+            </if>
+            <if test="bean.urlPath != null and bean.urlPath !=''">
+                and a.url_path = #{bean.urlPath}
+            </if>
+            <if test="bean.num != null and bean.num !=''">
+                and a.num = #{bean.num}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询-->
+    <select id="queryListByPage" resultMap="noteResultMap">
+        SELECT
+        <include refid="noteColumn"/>
+        FROM notes a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.noteName != null and bean.noteName !=''">
+                and a.note_name = #{bean.noteName}
+            </if>
+            <if test="bean.urlPath != null and bean.urlPath !=''">
+                and a.url_path = #{bean.urlPath}
+            </if>
+            <if test="bean.num != null and bean.num !=''">
+                and a.num = #{bean.num}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+        ORDER BY a.create_time DESC limit #{start},#{end}
+    </select>
+
+</mapper>

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.licy.dao.IArticlesDao">
+    <resultMap id="articleResultMap" type="com.shu.licy.model.Articles">
+        <id property="id" column="id"  />
+        <result property="type" column="d_type" />
+        <result property="title" column="d_title" />
+        <result property="docAbstract" column="d_abstract" />
+        <result property="keywords" column="d_keywords" />
+        <result property="topics" column="d_topics" />
+        <result property="content" column="d_content" />
+        <result property="urlPath" column="url_path" />
+        <result property="noteId" column="note_id" />
+        <result property="hits" column="hits" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime"  column="create_time" />
+        <result property="updateBy"  column="update_by" />
+        <result property="updateTime"  column="update_time" />
+    </resultMap>
+
+    <sql id="articleColumn">
+        a.id AS "id",
+        a.d_type AS "type",
+        a.d_title AS "title",
+        a.d_abstract AS "docAbstract",
+        a.d_keywords AS "keywords",
+        a.d_topics AS "topics",
+        a.d_content AS "content",
+        a.url_path AS "urlPath",
+        a.note_id AS "noteId",
+        a.hits AS "hits",
+        a.create_by AS "createBy",
+        a.create_time AS "createTime",
+        a.update_by AS "updateBy",
+        a.update_time AS "updateTime"
+    </sql>
+
+    <!--添加对象-->
+    <insert id="add">
+         INSERT INTO
+         articles(
+         d_type,
+         d_title,
+         d_abstract,
+         d_keywords,
+         d_topics,
+         d_content,
+         url_path,
+         note_id,
+         create_by,
+         create_time)
+      VALUES (
+      #{bean.type},
+      #{bean.title},
+      #{bean.docAbstract},
+      #{bean.keywords},
+      #{bean.topics},
+      #{bean.content},
+      #{bean.urlPath},
+      #{bean.noteId},
+      #{bean.createBy},
+      #{bean.createTime})
+    </insert>
+
+    <!--删除对象-->
+    <delete id="delete">
+      DELETE a FROM articles a
+      <where>
+          <if test="bean.id != null and bean.id !=''">
+              a.id = #{bean.id}
+          </if>
+          <if test="bean.type != null and bean.type !=''">
+             and a.d_type = #{bean.type}
+          </if>
+          <if test="bean.title != null and bean.title !=''">
+              and a.d_title = #{bean.title}
+          </if>
+          <if test="bean.docAbstract != null and bean.docAbstract !=''">
+              and a.d_abstract = #{bean.docAbstract}
+          </if>
+          <if test="bean.keywords != null and bean.keywords !=''">
+              and a.d_keywords = #{bean.keywords}
+          </if>
+          <if test="bean.topics != null and bean.topics !=''">
+              and a.d_topics = #{bean.topics}
+          </if>
+          <if test="bean.content != null and bean.content !=''">
+              and a.d_content = #{bean.content}
+          </if>
+          <if test="bean.urlPath != null and bean.urlPath !=''">
+              and a.url_path = #{bean.urlPath}
+          </if>
+          <if test="bean.noteId != null and bean.noteId !=''">
+              and a.note_id = #{bean.noteId}
+          </if>
+          <if test="bean.createBy != null and bean.createBy !=''">
+              and a.create_by = #{bean.createBy}
+          </if>
+          <if test="bean.createTime != null and bean.createTime !=''">
+              and a.create_time = #{bean.createTime}
+          </if>
+      </where>
+    </delete>
+
+    <!--查询对象-->
+    <select id="queryList" resultMap="articleResultMap">
+        SELECT
+        <include refid="articleColumn"/>
+        FROM articles a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.type != null and bean.type !=''">
+                and a.d_type = #{bean.type}
+            </if>
+            <if test="bean.title != null and bean.title !=''">
+                and a.d_title = #{bean.title}
+            </if>
+            <if test="bean.docAbstract != null and bean.docAbstract !=''">
+                and a.d_abstract = #{bean.docAbstract}
+            </if>
+            <if test="bean.keywords != null and bean.keywords !=''">
+                and a.d_keywords = #{bean.keywords}
+            </if>
+            <if test="bean.topics != null and bean.topics !=''">
+                and a.d_topics = #{bean.topics}
+            </if>
+            <if test="bean.content != null and bean.content !=''">
+                and a.d_content = #{bean.content}
+            </if>
+            <if test="bean.urlPath != null and bean.urlPath !=''">
+                and a.url_path = #{bean.urlPath}
+            </if>
+            <if test="bean.noteId != null and bean.noteId !=''">
+                and a.note_id = #{bean.noteId}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询数量-->
+    <select id="queryCount" resultType="int">
+        SELECT count(*)
+        FROM articles a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.type != null and bean.type !=''">
+                and a.d_type = #{bean.type}
+            </if>
+            <if test="bean.title != null and bean.title !=''">
+                and a.d_title = #{bean.title}
+            </if>
+            <if test="bean.docAbstract != null and bean.docAbstract !=''">
+                and a.d_abstract = #{bean.docAbstract}
+            </if>
+            <if test="bean.keywords != null and bean.keywords !=''">
+                and a.d_keywords = #{bean.keywords}
+            </if>
+            <if test="bean.topics != null and bean.topics !=''">
+                and a.d_topics = #{bean.topics}
+            </if>
+            <if test="bean.content != null and bean.content !=''">
+                and a.d_content = #{bean.content}
+            </if>
+            <if test="bean.urlPath != null and bean.urlPath !=''">
+                and a.url_path = #{bean.urlPath}
+            </if>
+            <if test="bean.noteId != null and bean.noteId !=''">
+                and a.note_id = #{bean.noteId}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询-->
+    <select id="queryListByPage" resultMap="articleResultMap">
+        SELECT
+        <include refid="articleColumn"/>
+        FROM articles a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.type != null and bean.type !=''">
+                and a.d_type = #{bean.type}
+            </if>
+            <if test="bean.title != null and bean.title !=''">
+                and a.d_title = #{bean.title}
+            </if>
+            <if test="bean.docAbstract != null and bean.docAbstract !=''">
+                and a.d_abstract = #{bean.docAbstract}
+            </if>
+            <if test="bean.keywords != null and bean.keywords !=''">
+                and a.d_keywords = #{bean.keywords}
+            </if>
+            <if test="bean.topics != null and bean.topics !=''">
+                and a.d_topics = #{bean.topics}
+            </if>
+            <if test="bean.content != null and bean.content !=''">
+                and a.d_content = #{bean.content}
+            </if>
+            <if test="bean.urlPath != null and bean.urlPath !=''">
+                and a.url_path = #{bean.urlPath}
+            </if>
+            <if test="bean.noteId != null and bean.noteId !=''">
+                and a.note_id = #{bean.noteId}
+            </if>
+        </where>
+        ORDER BY a.create_time DESC limit #{start},#{end}
+    </select>
+
+    <!--更新文章-->
+    <update id="updateArticle">
+        UPDATE articles a
+        <set>
+            <if test="bean.type != null and bean.type !=''">
+                a.d_type = #{bean.type},
+            </if>
+            <if test="bean.title != null and bean.title !=''">
+                a.d_title = #{bean.title},
+            </if>
+            <if test="bean.docAbstract != null and bean.docAbstract !=''">
+                a.d_abstract = #{bean.docAbstract},
+            </if>
+            <if test="bean.keywords != null and bean.keywords !=''">
+                a.d_keywords = #{bean.keywords},
+            </if>
+            <if test="bean.topics != null and bean.topics !=''">
+                a.d_topics = #{bean.topics},
+            </if>
+            <if test="bean.content != null and bean.content !=''">
+                a.d_content = #{bean.content},
+            </if>
+            <if test="bean.urlPath != null and bean.urlPath !=''">
+                a.url_path = #{bean.urlPath},
+            </if>
+            <if test="bean.noteId != null and bean.noteId !=''">
+                a.note_id = #{bean.noteId},
+            </if>
+        </set>
+        where a.id =#{bean.id}
+    </update>
+
+    <select id="queryArticleByid" resultMap="articleResultMap">
+        SELECT
+        <include refid="articleColumn"/>
+        FROM articles a where a.id = #{id}
+    </select>
+
+    <select id="queryArticleByTitle" resultMap="articleResultMap">
+        SELECT
+        <include refid="articleColumn"/>
+        FROM articles a where a.d_title = #{title}
+    </select>
+</mapper>

@@ -26,7 +26,7 @@
         </property>
     </bean>
     <!--配置整合mybatis过程-->
-    <!--2.配置数据库连接池-->
+    <!--1.配置数据库连接池-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <!--配置数据库连接属性-->
         <property name="driverClass" value="${jdbc.driver}"/>
@@ -41,10 +41,10 @@
         <!--获取连接超时时间-->
         <property name="checkoutTimeout" value="1000"/>
         <!--当前连接失败后重试次数-->
-        <property name="acquireRetryAttempts" value="2"/>
+        <property name="acquireRetryAttempts" value="3"/>
     </bean>
 
-    <!--3.配置sqlSessionFactory-->
+    <!--2.配置sqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--注入数据库连接池-->
         <property name="dataSource" ref="dataSource"/>
@@ -56,12 +56,12 @@
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
     </bean>
 
-    <!--4.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中-->
+    <!--3.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--注入sqlSessionFactory-->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!--给出需要扫描Dao接口包-->
-        <property name="basePackage" value="com.jinmu.dao.dal"/>
+        <property name="basePackage" value="com.shu.licy.dao"/>
     </bean>
 
     <!--配置事务管理器-->

@@ -10,8 +10,8 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString
-public class Picture {
+@ToString(callSuper = true)
+public class Pictures extends Base{
 
     /**
      * 名称
@@ -34,7 +34,7 @@ public class Picture {
     private String typeName;
 
     /**
-     * 类别：头像("APPEAR")、相册("ALBUM")、推广("SPREAD")
+     * 类别：头像(0，"APPEAR")、相册,（1，"ALBUM")、推广(2，"SPREAD")
      */
-    private String type;
+    private int type;
 }

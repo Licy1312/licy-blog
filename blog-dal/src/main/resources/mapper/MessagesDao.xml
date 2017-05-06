@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.licy.dao.IMessagesDao">
+    <resultMap id="messageResultMap" type="com.shu.licy.model.Messages">
+        <id property="id" column="id"  />
+        <result property="title" column="title"/>
+        <result property="author" column="author"/>
+        <result property="content" column="content"/>
+        <result property="pid" column="pid"/>
+        <result property="type" column="type"/>
+        <result property="createBy" column="create_by" />
+        <result property="createTime"  column="create_time" />
+        <result property="updateBy"  column="update_by" />
+        <result property="updateTime"  column="update_time" />
+    </resultMap>
+
+    <sql id="messageColumn">
+        a.id AS "id",
+        a.title AS "title",
+        a.author AS "author",
+        a.content AS "content",
+        a.pid AS "pid",
+        a.type AS "type",
+        a.create_by AS "createBy",
+        a.create_time AS "createTime",
+        a.update_by AS "updateBy",
+        a.update_time AS "updateTime"
+    </sql>
+
+    <!--添加对象-->
+    <insert id="add">
+        INSERT INTO
+        messages(
+        title,
+        author,
+        content,
+        pid,
+        type,
+        create_by,
+        create_time)
+        VALUES (
+        #{bean.title},
+        #{bean.author},
+        #{bean.content},
+        #{bean.pid},
+        #{bean.type},
+        #{bean.createBy},
+        #{bean.createTime})
+    </insert>
+
+    <!--删除对象-->
+    <delete id="delete">
+        DELETE a FROM messages a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.title != null and bean.title !=''">
+                and a.title = #{bean.title}
+            </if>
+            <if test="bean.author != null and bean.author !=''">
+                and a.author = #{bean.author}
+            </if>
+            <if test="bean.content != null and bean.content !=''">
+                and a.content = #{bean.content}
+            </if>
+            <if test="bean.pid != null and bean.pid !=''">
+                and a.pid = #{bean.pid}
+            </if>
+            <if test="bean.type != null and bean.type !=''">
+                and a.type = #{bean.type}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+        </where>
+    </delete>
+
+    <!--查询对象-->
+    <select id="queryList" resultMap="messageResultMap">
+        SELECT
+        <include refid="messageColumn"/>
+        FROM messages a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.title != null and bean.title !=''">
+                and a.title = #{bean.title}
+            </if>
+            <if test="bean.author != null and bean.author !=''">
+                and a.author = #{bean.author}
+            </if>
+            <if test="bean.content != null and bean.content !=''">
+                and a.content = #{bean.content}
+            </if>
+            <if test="bean.pid != null and bean.pid !=''">
+                and a.pid = #{bean.pid}
+            </if>
+            <if test="bean.type != null and bean.type !=''">
+                and a.type = #{bean.type}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询数量-->
+    <select id="queryCount" resultType="int">
+        SELECT count(*)
+        FROM messages a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.title != null and bean.title !=''">
+                and a.title = #{bean.title}
+            </if>
+            <if test="bean.author != null and bean.author !=''">
+                and a.author = #{bean.author}
+            </if>
+            <if test="bean.content != null and bean.content !=''">
+                and a.content = #{bean.content}
+            </if>
+            <if test="bean.pid != null and bean.pid !=''">
+                and a.pid = #{bean.pid}
+            </if>
+            <if test="bean.type != null and bean.type !=''">
+                and a.type = #{bean.type}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询-->
+    <select id="queryListByPage" resultMap="messageResultMap">
+        SELECT
+        <include refid="messageColumn"/>
+        FROM messages a
+        <where>
+            <if test="bean.id != null and bean.id !=''">
+                a.id = #{bean.id}
+            </if>
+            <if test="bean.title != null and bean.title !=''">
+                and a.title = #{bean.title}
+            </if>
+            <if test="bean.author != null and bean.author !=''">
+                and a.author = #{bean.author}
+            </if>
+            <if test="bean.content != null and bean.content !=''">
+                and a.content = #{bean.content}
+            </if>
+            <if test="bean.pid != null and bean.pid !=''">
+                and a.pid = #{bean.pid}
+            </if>
+            <if test="bean.type != null and bean.type !=''">
+                and a.type = #{bean.type}
+            </if>
+            <if test="bean.createBy != null and bean.createBy !=''">
+                and a.create_by = #{bean.createBy}
+            </if>
+            <if test="bean.createTime != null and bean.createTime !=''">
+                and a.create_time = #{bean.createTime}
+            </if>
+            <if test="bean.updateBy != null and bean.updateBy !=''">
+                and a.update_by = #{bean.updateBy}
+            </if>
+            <if test="bean.updateTime != null and bean.updateTime !=''">
+                and a.update_time = #{bean.updateTime}
+            </if>
+        </where>
+        ORDER BY a.create_time DESC limit #{start},#{end}
+    </select>
+
+</mapper>

@@ -26,4 +26,10 @@ public class ArticlesDaoTest extends BaseTest {
         List<Articles> articlesList = articlesDao.queryListByPage(article,0,5);
         log.info("分页查询结果:{}",articlesList);
     }
+
+    @Test
+    public void queryAllArticleTest(){
+        List<Articles> list = articlesDao.queryAllArticle();
+        log.info("所有文章:{}",list);
+    }
 }

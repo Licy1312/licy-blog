@@ -266,4 +266,9 @@
         <include refid="articleColumn"/>
         FROM articles a where a.d_title = #{title}
     </select>
+
+    <select id="queryAllArticle" resultMap="articleResultMap">
+        SELECT id,d_title,d_abstract,d_content
+        FROM articles
+    </select>
 </mapper>

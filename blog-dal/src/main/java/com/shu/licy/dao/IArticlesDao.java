@@ -32,4 +32,10 @@ public interface IArticlesDao extends IBaseDao<Articles>{
      */
     List<Articles> queryArticleByTitle(String title);
 
+    /**
+     * 获取所有的文章新（编号，标题，摘要，内容）
+     * @return
+     */
+    List<Articles> queryAllArticle();
+
 }
